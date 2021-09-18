@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Useful Markdown Information"
+date:   2021-09-17 17:00:00 +1000
+categories: markdown
+---
+
+<h2>Useful Links</h2>
+
+Some useful information for using markdown.
+
+- [Markdown doco][markdown-docs] - Cheat sheet, basic and advanced info
+- [Markdown Guide][markdown-guide-tables] - Tables
+- [Markdown Table Generator][markdown-table-generator]
+
+[markdown-docs]: https://www.markdownguide.org/
+[markdown-guide-tables]: https://www.markdownguide.org/extended-syntax/
+[markdown-table-generator]: https://www.tablesgenerator.com/markdown_tables
