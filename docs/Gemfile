@@ -34,6 +34,6 @@ gem "webrick", "~> 1.7"
 
 gem "kramdown-syntax-coderay", "~> 1.0"
 
-gem "minimal-mistakes-jekyll"
+source "https://rubygems.org"
 
-gem "jekyll-include-cache"
+gem "jekyll-include-cache", group: :jekyll_plugins
