@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title:  "Typescript Basics"
 date:   2021-09-16 18:00:00 +1000
 categories: typescript

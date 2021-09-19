@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title:  "Angular Basics"
 date:   2021-09-16 20:00:00 +1000
 categories: angular typescript
@@ -176,5 +176,20 @@ export class ListComponent implements OnInit {
 
 }
 
+{% endhighlight %}
+
+<h2>Adding Bootstrap</h2>
+
+To add bootstrap CSS run the below npm command from within the project directory.
+
+{% highlight bash %}
+$ npm install boostrap --save
+
+{% endhighlight %}
+
+Now add bootstrap to the global styles in styles.css
+
+{% highlight css %}
+@import "~bootstrap"
 
 {% endhighlight %}
