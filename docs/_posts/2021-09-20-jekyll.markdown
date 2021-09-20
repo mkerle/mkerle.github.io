@@ -1,0 +1,32 @@
+---
+layout: single
+title:  "Jekyll"
+date:   2021-09-20 11:00:00 +1000
+toc: true
+categories: jekyll markdown
+---
+
+## Installing
+
+1. Get the ruby installer (including DevKit) from [Ruby Installer][ruby-installer]
+2. Open command prompt after the install and run `gem install jekyll bundler`
+3. Test it worked by running `jekyll -v`
+
+## Creating a new Jekyll Blog
+
+1. Create a new jekyll blog using `jekyll new <blogname>`
+2. `cd <blogname>`
+3. Test the blog is working by using `bundle exec jekyll serve`
+
+## Useful commands
+
+1. Use `bundle update` to install dependencies or after a theme update etc.
+2. Use `bundle exec jekyll serve` to serve the site locally for testing.
+
+## Themes
+
+1. [Minimal Mistakes][minimal-mistakes] on github.  Supports GitHub pages but make sure use the "remote-theme" method to use.
+
+
+[ruby-installer]: https://rubyinstaller.org/
+[minimal-mistakes]: https://github.com/mmistakes/minimal-mistakes
