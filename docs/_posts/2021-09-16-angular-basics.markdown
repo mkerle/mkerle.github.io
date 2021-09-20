@@ -1,17 +1,18 @@
 ---
 layout: single
 title:  "Angular Basics"
+toc: true
 date:   2021-09-16 20:00:00 +1000
-categories: angular typescript
+categories: angular typescript bootstrap
 ---
 
-<h2>Installation</h2>
+## Installation
 
 {% highlight bash %}
 $ sudo npm install -g @angular/cli
 {% endhighlight %}
 
-<h2>Creating a new Project</h2>
+## Creating a new Project
 
 Use the CLI tools included with angular to create a new project.  The ng new command will create a folder in the current directory based on the name given.
 
@@ -21,7 +22,7 @@ $ ng new project-name
 $ cd ./project-name
 {% endhighlight %}
 
-<h2>Testing the App</h2>
+## Testing the App
 
 Assuming in the directory of the project, test the web application using the below command.  The output will show the port that is serving the webapp on the localhost.
 
@@ -29,7 +30,7 @@ Assuming in the directory of the project, test the web application using the bel
 $ ng serve
 {% endhighlight %}
 
-<h2>Creating Components</h2>
+## Creating Components
 
 The angular CLI tools can be used to create components rather then creating manually.  Navigate to the directory where you want the component created.  The below will create a component named "ButtonComponent".
 
@@ -54,7 +55,7 @@ UPDATE src/app/app.module.ts (396 bytes)
 |button.component.css|This contains the stylesheet for the component|
 |button.component.spec.ts|Don't know what this does but if I need to touch it then I might upate this!|
 
-<h2>Using a Component</h2>
+## Using a Component
 
 First you will need to remove the initial markup assuming starting with a new project.
 
@@ -69,7 +70,7 @@ First you will need to remove the initial markup assuming starting with a new pr
 {% endhighlight %}
 4. Run ng server and view the output in the browser.
 
-<h2>Templates and Directives</h2>
+## Templates and Directives
 
 Templates is term given in Angular when you want to display data in your component or incorporate some sort of logic in the html output.
 
@@ -103,7 +104,7 @@ The html for this listComponent is shown below.  The double curly braces can be 
 {% highlight html %}
 {% raw %}
 
-<h2>{{ title }}</h2>>
+## {{ title }}>
 
 <ul>
     <li *ngFor="let data of listData">{{ data }}</li>
@@ -115,7 +116,7 @@ The output of the above example in the browser is shown below.
 
 ![Output of the listComponent](/images/angular-basics/templates-directives.PNG "Templates and Directives output")
 
-<h2>Services</h2>
+## Services
 
 Services are used to interact with other systems in order to get or store data to be used in the application.
 
@@ -149,7 +150,7 @@ export class ColourService {
 }
 {% endhighlight %}
 
-<h2>Dependency Injection</h2>
+## Dependency Injection
 
 To use injection with a service it needs to be added to the dependency injection system.  When using the cli command to generate the service it will include the "root" provider.  To use the service in a component add the import and inject it by adding it to the constructor.
 
@@ -178,7 +179,7 @@ export class ListComponent implements OnInit {
 
 {% endhighlight %}
 
-<h2>Adding Bootstrap</h2>
+## Adding Bootstrap
 
 To add bootstrap CSS run the below npm command from within the project directory.
 
@@ -193,3 +194,27 @@ Now add bootstrap to the global styles in styles.css
 @import "~bootstrap"
 
 {% endhighlight %}
+
+## Bootstrap Icons
+
+Boostrap icons can also be used.
+
+{% highlight bash %}
+$ npm install boostrap-icons --save
+
+{% endhighlight %}
+
+Update `styles.css`
+
+{% highlight css %}
+@import "~bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+{% endhighlight %}
+
+Then use an icon in template
+
+{% highlight html %}
+<i class="bi-alarm" style="font-size: 3rem; color: cornflowerblue;"></i>
+{% endhighlight %}
+
