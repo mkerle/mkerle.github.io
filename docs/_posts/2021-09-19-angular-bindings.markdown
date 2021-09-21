@@ -206,5 +206,9 @@ export class InputComponent implements OnInit {
 <input [(ngModel)]="colour" (keyup.enter)="onKeyUp()" />
 {% endhighlight %}
 
+
+
+
+
 [attribute-reference]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 
