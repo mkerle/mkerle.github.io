@@ -20,15 +20,16 @@ Define the routing using an array of objects specifying the path to component ma
 
 {% highlight typescript %}
     RouterModule.forRoot([
-      { path: '', component : HomeComponent },
-      { path: '/admin/admin', component : AdminComponent },
-      { path: '/user/profile', component : ProfileComponent },
-      ...
+      { path: '/', component : HomeComponent },
+      { path: 'admin/admin', component : AdminComponent },
+      { path: 'user/profile', component : ProfileComponent },
+    ])
 {% endhighlight %}
 
-Can display the content of the route/component using the `<route-outlet>` component in the template.
 
-{% highlight html }
+Can display the content of the route/component using the `route-outlet` component in the template.
+
+{% highlight html %}
 <div>
     <router-outlet></router-outlet>
 </div>
