@@ -73,3 +73,12 @@ INSTALLED_APPS = [
     'newapp'
 ]
 {% endhighlight %}
+
+
+## Have Django Listen on all IP Interfaces
+
+To get django to listen on all interfaces, specify the IP in the `runserver` paramater like below.  Similar command can be used to listen on specific interface.
+
+{% highlight bash %}
+$ python manage.py runserver 0.0.0.0:9000
+{% endhighlight %}
