@@ -172,20 +172,27 @@ In the above example only remote users will be able to authenticate.  If a combi
 For this PoC the JWT Helper class and JWT Middleware will be in the same module.  The `JWTHelper` will do all the generation of JWTs as well as decoding and validation.
 
 {% highlight python %}
+import json
+import datetime
+from authlib.jose import JsonWebToken, JWTClaims
+from cryptography.hazmat.primitives import serialization
+
 class JWTHelper():
 
-    JWT_ISSUER = 'jwt.lab.zone'
+    JWT_ISSUER = 'jwt.mitch.zone'
     JWT_DEFAULT_EXPIRY = 60     # seconds
     JWT_PRIVATE_KEY_PATH = 'testapp/key.pem'
-    JWT_PRIVATE_KEY_PASSWORD = 'privatekeypassword'      # retrieve from keyring or at least obfuscate
+    JWT_PRIVATE_KEY_PASSWORD = 'Password1'      # retrieve from keyring or at least obfuscate
     JWT_PUBLIC_KEY_PATH = 'testapp/cert.pem'
 
-    def getPublicKey(self):
+    @classmethod
+    def getPublicKey(cls):
 
-        pubKey = self.getJWTPublicKey(self.JWT_PUBLIC_KEY_PATH).public_bytes(serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo)
+        pubKey = cls.getJWTPublicKey(cls.JWT_PUBLIC_KEY_PATH).public_bytes(serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo)
         return pubKey
 
-    def getJWTPublicKey(self, jwtPublicKeyPath):
+    @classmethod
+    def getJWTPublicKey(cls, jwtPublicKeyPath):
         with open(jwtPublicKeyPath, "rb") as key_file:
             public_key = serialization.load_pem_public_key(
                 key_file.read()
@@ -193,7 +200,8 @@ class JWTHelper():
 
         return public_key
 
-    def generateJWTExpiryTime(self, tokenExpirySecs):
+    @classmethod
+    def generateJWTExpiryTime(cls, tokenExpirySecs):
 
         return int((datetime.datetime.now()+datetime.timedelta(seconds=tokenExpirySecs)).timestamp())
 
@@ -207,7 +215,8 @@ class JWTHelper():
 
         return private_key
 
-    def generateUserJWT(self, userLDAPData):
+    @classmethod
+    def generateUserJWT(cls, userLDAPData):
 
         groups = []
         for group in userLDAPData.get('memberOf', []):
@@ -216,9 +225,9 @@ class JWTHelper():
         principalName = userLDAPData.get('userPrincipalName')[0].decode('utf-8')
         name = userLDAPData.get('name')[0].decode('utf-8')
 
-        exp = self.generateJWTExpiryTime(self.JWT_DEFAULT_EXPIRY)
+        exp = cls.generateJWTExpiryTime(cls.JWT_DEFAULT_EXPIRY)
         payload = {
-            'iss': self.JWT_ISSUER, 
+            'iss': cls.JWT_ISSUER, 
             'sub': principalName, 
             'exp' : exp, 
             'name' : name, 
@@ -226,7 +235,7 @@ class JWTHelper():
         }
         header = {'alg': 'RS256'}
 
-        s = JsonWebToken.encode(header, payload, self.getJWTPrivateKey(self.JWT_PRIVATE_KEY_PATH, self.JWT_PRIVATE_KEY_PASSWORD))
+        s = JsonWebToken.encode(header, payload, cls.getJWTPrivateKey(cls.JWT_PRIVATE_KEY_PATH, cls.JWT_PRIVATE_KEY_PASSWORD))
 
         return { 'token' : s.decode('utf-8') }
 

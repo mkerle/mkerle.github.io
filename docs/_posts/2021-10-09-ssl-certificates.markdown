@@ -16,6 +16,84 @@ The below command will create a public certifiacte and private key which will be
 $ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
 {% endhighlight %}
 
+## Creating Self Signed Certificate using template
+
+To save entering the certificate values manually a SSL config file can be used to generate a certificate.  The comments give an example commmand to generate a certificate using this config file.
+
+{% highlight ssl %}
+######################################################
+# OpenSSL config to generate a self-signed certificate
+#
+# Create certificate with:
+# openssl req -x509 -new -nodes -days 720 -keyout selfsigned.key -out selfsigned.pem -config openssl.cnf
+#
+# Remove the -nodes option if you want to secure your private key with a passphrase
+#
+######################################################
+
+################ Req Section ################
+# This is used by the `openssl req` command
+# to create a certificate request and by the
+# `openssl req -x509` command to create a
+# self-signed certificate.
+
+[ req ]
+
+# The size of the keys in bits:
+default_bits       = 2048
+
+# The message digest for self-signing the certificate
+# sha1 or sha256 for best compatability, although most
+# OpenSSL digest algorithm can be used.
+# md4,md5,mdc2,rmd160,sha1,sha256
+default_md = sha256
+
+# Don't prompt for the DN, use configured values instead
+# This saves having to type in your DN each time.
+
+prompt             = no
+string_mask        = default
+distinguished_name = req_dn
+
+# Extensions added while singing with the `openssl req -x509` command
+x509_extensions = x509_ext
+
+[ req_dn ]
+
+countryName            = AU
+stateOrProvinceName    = WA
+organizationName       = Some Company
+commonName             = localhost
+
+[ x509_ext ]
+
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+# No basicConstraints extension is equal to CA:False
+# basicConstraints      = critical, CA:False
+
+keyUsage = critical, digitalSignature, keyEncipherment
+
+extendedKeyUsage = serverAuth
+
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+DNS.2 = someserver.somedomain
+DNS.3 = 127.0.0.1
+
+{% endhighlight %}
+
+## Getting a Public Key from Public Certificate
+
+Use the below command to get a public key in PEM format from a public certificate.
+
+{% highlight bash %}
+$ openssl x509 -pubkey -noout -in cert.pem  > pubkey.pem
+{% endhighlight %}
+
 ## Using Python and Certificates
 
 The `cryptography` library can be used to generate certificates or read public and private keys.  Refer to [Python Cryptograry docs][python-crypt]
