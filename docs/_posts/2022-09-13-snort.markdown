@@ -1,0 +1,42 @@
+---
+layout: single
+title:  "SNORT IDS"
+date:   2022-09-13 18:00:00 +1000
+toc: true
+categories: snort intrusion detection
+---
+
+Snort has many uses including IDS (Intrusion Detection).
+
+## SNORT Rules
+
+Snort rules are described in `/usr/local/etc/rules/local.rules`.
+
+An example Snort rules looks like the below which could be used to detect ICMP traffic between two networks.  The "<>" would detect ICMP traffic in either direction.  The "any" refers to the port(s) to use in the detection.  "sid" is a snort id to relate detections back to a rule (a sid can also include a revision).
+
+{% highlight snort %}
+alert icmp $DMZ_NET any <> $EXT_NET any ( msg:"ICMP Traffic Detected"; sid:10000001; metadata:policy security-ips alert;)
+{% endhighlight %}
+
+Check the SNORT [infographic][snort-infographic] for quick hints on the format of SNORT rules.
+
+## Applying SNORT Rule Changes
+
+To apply a change to Snort rules restart the snort service.  Assuming service dedicated for an "external" interface.
+
+{% highlight bash %}
+sudo systemctl restart snort3_external
+{% endhighlight %}
+
+## Checking SNORT Logs
+
+SNORT logs can be found in `/var/log/snort/`.
+
+
+## Writing Advanced Custom SNORT Rules
+
+TBC.
+
+
+
+[snort-infographic]: https://snort-org-site.s3.amazonaws.com/production/document_files/files/000/000/116/original/Snort_rule_infographic.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU7AK5ITMJQBJPARJ%2F20220913%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220913T082221Z&X-Amz-Expires=172800&X-Amz-SignedHeaders=host&X-Amz-Signature=e9fcd47fc292abe790afab799d437a94f3b06f401f204819137827648634d6d9

@@ -10,7 +10,7 @@ We can configure the linux audit daemon to trigger on certain events.
 
 ## File Modifications Monitoring
 
-`auditctl` can be used to trigger log entries if files have been modified.  An example command to achieve this is shown below. The `-w` switch is to watch the file, `-p` is the change operation with `wa` looking for write and attribute changes.  The `-k` switch is to specify a keyword to be used in log entries.
+`auditctl` can be used to trigger log entries if files have been modified.  An example command to achieve this is shown below. The `-w` switch is to watch the file, `-p` is the change operation with `wa` looking for write and attribute changes (adding `r` would also look for any read operations on the file).  The `-k` switch is to specify a keyword to be used in log entries.
 
 {% highlight bash %}
 sudo auditctl -w /home/user/.bashrc -p wa -k privesc
@@ -47,10 +47,16 @@ The `-a` flag indicates "[list,action]" or "[action,list"] (can be either order)
 
 There is a tool called [ausearch][ausearch-man-page] that allows searching of the audit logs.
 
-An example of this command is below:
+An example of this command is below.  The `-x` flag is the executable to search for in the events.
 
 {% highlight bash %}
 sudo ausearch -k root_cmds -i -x bash
+{% endhighlight %}
+
+Another example might be to look for events that have the given "comm name" (executable name from the task structure) using the `-c` flag.  A helpful flag is to also include `-i` that will interpret the UID into account names on the local machine.
+
+{% highlight bash %}
+sudo ausearch -k root_cmds -i -c cat
 {% endhighlight %}
 
 
