@@ -4,6 +4,7 @@ title:  "AWS Elastic Container Repository"
 date:   2022-12-24 12:30:00 +1000
 toc: true
 categories: aws docker ecr container
+permalink: /aws-docker-ecr/
 ---
 
 ## Introduction
